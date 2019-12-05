@@ -69,23 +69,30 @@
             border-radius: 15px;
 
         }
+        .top_message{
+            text-align: center;
+            background-color: rebeccapurple;
+            width: 1520px;
+        }
+
     </style>
 </head>
 <body>
+<div class="top_message">{{message}}</div>
 <div class="background">
-    <img src="../pic/login_background.jpg" height="100%" width="100%">
+    <img src="{{ url_for('static', filename='pic/login_background.jpg') }}" height="100%" width="100%">
     <div class="login_box" >
         <div class="top_world">欢迎登陆</div>
-        <form class="login_form">
+        <form class="login_form" method="get" action="/login">
             <div class="account_div ">
-                <img src="../pic/touxiang.png" class="pic">
-                <input type="text" class="input_txt" placeholder="ACCOUNT" style= "background-color:transparent;border:0;">
+                <img src="{{ url_for('static', filename='pic/touxiang.png') }}" class="pic">
+                <input name="account" type="text" class="input_txt" placeholder="ACCOUNT" style= "background-color:transparent;border:0;">
             </div>
             <div class="password_div">
-                <img src="../pic/mima.png" class="pic">
-                <input type="text" class="input_txt" placeholder="PASSWORD" style= "background-color:transparent;border:0;">
+                <img src="{{ url_for('static', filename='pic/mima.png') }}" class="pic">
+                <input name="password" type="text" class="input_txt" placeholder="PASSWORD" style= "background-color:transparent;border:0;">
             </div>
-            <input class="login_button" type="button" value="login" >
+            <input class="login_button" type="submit" value="login" >
         </form>
     </div>
 </div>
