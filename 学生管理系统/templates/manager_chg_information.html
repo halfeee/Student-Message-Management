@@ -5,17 +5,82 @@
     <meta charset="UTF-8">
     <title>管理人员信息更改界面</title>
     <style type="text/css">
-        
+        .top_div{
+            height: 70px;
+            width: 100%;
+            background-color: #40E0D0;
+        }
+        .top_txt{
+            position: absolute;
+            font-size: 40px;
+            top: 28px;
+            height: 40px;
+            width: 100%;
+        }
+        .form_get{
+            height: 570px;
+            width: 600px;
+        }
+        .X_group{
+            display: flex;
+            height: 116px;
+            width: 600px;
+        }
+        .name_txt{
+            font-size: 25px;
+            margin-top: 58px;
+
+        }
+        .input_txt{
+            font-size: 20px;
+            margin-top: 35px;
+            margin-left: 20px;
+        }
+        .button{
+            background-color: mediumseagreen;
+            height: 68px;
+            width: 166px;
+            margin-left: 24px;
+            margin-top: 20px;
+        }
+        .radio_group{
+            margin-top: 61px;
+            margin-left: 24px;
+            height: 60px;
+            width: 230px;
+        }
+        .r2{
+            margin-left: 77px;
+        }
     </style>
 </head>
-<body>
+<body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+    <div class="top_div">
+        <div class="top_txt">修改管理员信息</div>
+    </div>
     <form class="form_get" action="/manager_change" method="get">
-        <input name="new_account" type="text" value="{{account}}" readonly="true">
-        <input name="new_name" type="text" value="{{name}}">
-        <input name="new_sex" type="text" value="{{sex}}">
-        <input name="new_password" type="text" value="新密码">
-        <input type="submit" value="确认更改">
+        <div class="X_group">
+            <div class="name_txt">账号信息</div>
+            <input name="new_account"class="input_txt" type="text" value="{{account}}" readonly="true">
+        </div>
+        <div class="X_group">
+            <div class="name_txt">修改姓名</div>
+            <input name="new_name" class="input_txt" type="text" value="{{name}}">
+        </div>
+        <div class="X_group">
+            <div class="name_txt">修改性别</div>
+            <div class="radio_group">
+                <label><input name="sex" type="radio" value="男" />男 </label>
+                <label><input class="r2" name="sex" type="radio" value="女" />女 </label>
+            </div>
+
+        </div>
+        <div class="X_group">
+            <div class="name_txt">修改密码</div>
+            <input name="new_password" class="input_txt" type="text" value="000000">
+        </div >
+        <input type="submit" class="button" value="确认更改">
     </form>
-     
+
 </body>
 </html>

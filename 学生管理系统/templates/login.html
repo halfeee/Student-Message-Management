@@ -77,7 +77,7 @@
 
     </style>
 </head>
-<body>
+<body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
 <div class="top_message">{{message}}</div>
 <div class="background">
     <img src="{{ url_for('static', filename='pic/login_background.jpg') }}" height="100%" width="100%">
@@ -90,7 +90,7 @@
             </div>
             <div class="password_div">
                 <img src="{{ url_for('static', filename='pic/mima.png') }}" class="pic">
-                <input name="password" type="text" class="input_txt" placeholder="PASSWORD" style= "background-color:transparent;border:0;">
+                <input name="password" type="password" class="input_txt" placeholder="PASSWORD" style= "background-color:transparent;border:0;">
             </div>
             <input class="login_button" type="submit" value="login" >
         </form>

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教师课程列表界面</title>
+    <style type="text/css">
+        .top_div{
+            height: 70px;
+            width: 100%;
+            background-color: #40E0D0;
+        }
+        .top_txt{
+            position: absolute;
+            font-size: 40px;
+            top: 28px;
+            height: 40px;
+            width: 100%;
+        }
+        .table_caption{
+            height: 40px;
+            font-size: 30px;
+        }
+        .button_back{
+            height: 40px;
+            width: 108px;
+            margin-left: 40px;
+            margin-top: 90px;
+        }
+    </style>
+</head>
+<body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+<div class="top_div">
+    <div class="top_txt">课程信息列表</div>
+</div>
+<TABLE align="center"   width="1400" >
+    <CAPTION class="table_caption">课程列表</CAPTION>
+    <TR align="center" height="60px"> <TH>课程号</TH><TH>课程名</TH><TH>老师名称</TH><TH>学生上限</TH><TH>学生人数</TH><TH>学时</TH><TH>学分</TH><TH>上课时间</TH><TH>课程类型</TH><TH>详情</TH></TR>
+    {%for item in class_table%}
+    <tr align="center" height="50px" bgcolor="aqua">
+        {%for a in item%}
+        <td>{{a}}</td>
+        {% endfor %}
+        <td><a href="/course_detail?course_id={{item[0]}}">学生详情</a></td>
+    </tr>
+    {% endfor %}
+</TABLE>
+<a href="/back">
+    <input type="button" class="button_back" value="返回">
+</a>
+</body>
+</html>

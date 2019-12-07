@@ -28,34 +28,32 @@
 
             margin-left: 20px;
         }
+        .back_div{
+            margin-left: 20px;
+        }
+        .logout_button{
+            background-color: rebeccapurple;
+            height: 78px;
+            width: 159px;
+            font-size:21px;
+            border: rebeccapurple;
+        }
         .txt_div{
             margin-top: 21px;
             margin-left: 7px;
             font-size:21px;
-            ;
+
         }
         .select_group{
             width: 1520px;
             height: 610px;
-            background-color: #40E0D0;
             display: flex;
         }
         .form_css{
             height: 100%;
             width: 25%;
         }
-        .change_information{
-            background-color: white;
-        }
-        .set_student{
-            background-color: #00BFFF;
-        }
-        .set_teacher{
-            background-color: white;
-        }
-        .set_class{
-            background-color: #00BFFF;
-        }
+
 
         .button_css{
             height: 150px;
@@ -63,13 +61,26 @@
             margin-top: 217px;
             margin-left: 101px;
             background-color: #40E0D0;
+            border-radius:25px;
+        }
+        .b1{
+            background-color: #40E0D0;
+        }
+        .b2{
+            background-color: rebeccapurple;
+        }
+        .b3{
+            background-color: antiquewhite;
+        }
+        .b4{
+            background-color: brown;
         }
 
 
 
     </style>
 </head>
-<body>
+<body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
 <div class="top_inf">
     <div class="name_div top_div">
         <div style="color:white"class="txt_mane txt_div">用户名:{{name}}</div>
@@ -80,21 +91,32 @@
     <div class="sex_div top_div">
         <div style="color:white" class="txt_sex txt_div">性别:{{sex}}</div>
     </div>
+    <div class="back_div top_div">
+        <a href="/">
+            <input type="button" style="color:white" class="logout_button" value="退出登录">
+        </a>
+    </div>
 </div>
 <div class="select_group">
 <div class="change_information form_css">
-    <a href="/manager?id={{account}}&name={{name}}&sex={{sex}}">
-        <input class="button_css" type=button value="个人信息修改"/>
+    <a href="/manager">
+        <input class="button_css b1" type=button value="个人信息修改"/>
     </a>
 </div>
 <div class="set_student form_css">
-
+    <a href="/m_student">
+        <input class="button_css b2" type=button value="学生信息修改"/>
+    </a>
 </div>
 <div class="set_teacher form_css">
-
+    <a href="/m_teacher">
+        <input class="button_css b3" type=button value="教师信息修改"/>
+    </a>
 </div>
 <div class="set_class form_css" method="get">
-
+    <a href="/m_class">
+        <input class="button_css b4" type=button value="课程信息修改"/>
+    </a>
 </div>
 </div>
 </body>
