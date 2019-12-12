@@ -67,7 +67,7 @@
     </div>
     <div class="X_group">
         <div class="name_txt">教师名称</div>
-        <input name="new_teacher" class="input_txt" type="text" value="" list="teacher_list">
+        <input name="new_teacher" class="input_txt" type="text" value="" list="teacher_list" autocomplete="off">
         <datalist id="teacher_list">
             {%for item in teacher_name_list%}
             <option value="{{item[0]}}"></option>

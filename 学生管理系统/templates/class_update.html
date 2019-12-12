@@ -58,7 +58,7 @@
 </div>
 <form class="form_get" action="/class_update" method="get">
     <div class="X_group">
-        <div class="name_txt">账号信息</div>
+        <div class="name_txt">修改账号信息</div>
         <input name="new_account" class="input_txt" type="text" value="{{result[0]}}" readonly="true">
     </div>
     <div class="X_group">
@@ -66,7 +66,7 @@
         <input name="new_name" class="input_txt" type="text" value="{{result[1]}}">
     </div>
     <div class="X_group">
-        <div class="name_txt">修改教师</div>
+        <div class="name_txt">修改教师信息</div>
         <input name="new_teacher" class="input_txt" type="text" value="{{result[2]}}" list="teacher_list">
         <datalist id="teacher_list">
             {%for item in teacher_name_list%}
@@ -79,11 +79,11 @@
         <input name="new_max_num" class="input_txt" type="text" value="{{result[3]}}">
     </div>
     <div class="X_group">
-        <div class="name_txt">修改学时</div>
+        <div class="name_txt">修改学时信息</div>
         <input name="new_time" class="input_txt" type="text" value="{{result[5]}}">
     </div>
     <div class="X_group">
-        <div class="name_txt">修改学分</div>
+        <div class="name_txt">修改学分信息</div>
         <input name="new_credit" class="input_txt" type="text" value="{{result[6]}}">
     </div>
     <div class="X_group">

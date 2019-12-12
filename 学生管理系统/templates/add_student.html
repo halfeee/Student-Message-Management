@@ -89,7 +89,12 @@
 
     <div class="X_group">
         <div class="name_txt">新生班级</div>
-        <input name="new_class" class="input_txt" type="text" value="">
+        <input name="new_class" class="input_txt" type="text" value="" list="classname" autocomplete="off">
+        <datalist id="classname">
+            {%for item in class_name%}
+            <option value="{{item[0]}}"></option>
+            {% endfor %}
+        </datalist>
     </div >
     <div class="X_group">
         <div class="name_txt">新生密码</div>

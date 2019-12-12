@@ -70,14 +70,20 @@
         <div class="X_group">
             <div class="name_txt">修改性别</div>
             <div class="radio_group">
-                <label><input name="sex" type="radio" value="男" />男 </label>
-                <label><input class="r2" name="sex" type="radio" value="女" />女 </label>
+                {% if sex == '男'%}
+                <label><input name="new_sex" type="radio" value="男"  checked/>男 </label>
+                <label><input class="r2" name="new_sex" type="radio" value="女" />女 </label>
+                {% endif %}
+                {% if sex == '女'%}
+                <label><input name="new_sex" type="radio" value="男"  />男 </label>
+                <label><input class="r2" name="new_sex" type="radio" value="女" checked />女 </label>
+                {% endif %}
             </div>
 
         </div>
         <div class="X_group">
             <div class="name_txt">修改密码</div>
-            <input name="new_password" class="input_txt" type="text" value="000000">
+            <input name="new_password" class="input_txt" type="text" value="{{password}}">
         </div >
         <input type="submit" class="button" value="确认更改">
     </form>

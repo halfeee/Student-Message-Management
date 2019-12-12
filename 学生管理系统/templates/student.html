@@ -1,10 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>学生主界面</title>
-    < meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+
+        .top_inf{
+            width: 1520px;
+            height: 80px;
+            background-color: rebeccapurple;
+            display: flex;
+        }
+        .top_div{
+            height: 80px;
+            width: 210px;
+
+        }
+        .name_div{
+
+        }
+        .account_div{
+
+            margin-left: 20px;
+        }
+        .sex_div{
+
+            margin-left: 20px;
+        }
+        .txt_div{
+            margin-top: 21px;
+            margin-left: 7px;
+            font-size:21px;
+        }
+        .back_div{
+            margin-left: 20px;
+        }
+        .logout_button{
+            background-color: rebeccapurple;
+            height: 78px;
+            width: 159px;
+            font-size:21px;
+            border: rebeccapurple;
+        }
+        .select_group{
+            width: 1520px;
+            height: 610px;
+            display: flex;
+        }
+        .form_css{
+            height: 100%;
+            width: 25%;
+        }
+
+
+        .button_css{
+            height: 150px;
+            width: 150px;
+            margin-top: 217px;
+            margin-left: 101px;
+            border-radius:25px;
+        }
+        .b1{
+            background-color: #40E0D0;
+        }
+        .b2{
+            background-color: rebeccapurple;
+        }
+
+    </style>
 </head>
-<body>
+<body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;" >
+<div class="top_inf">
+    <div class="name_div top_div">
+        <div style="color:white"class="txt_mane txt_div">用户名:{{name}}</div>
+    </div>
+    <div class="account_div top_div">
+        <div style="color:white" class="txt_account txt_div">账号:{{account}}</div>
+    </div>
+    <div class="sex_div top_div">
+        <div style="color:white" class="txt_sex txt_div">性别:{{sex}}</div>
+    </div>
+    <div class="sex_div top_div">
+        <div style="color:white" class="txt_sex txt_div">班级:{{class_name}}</div>
+    </div>
+    <div class="back_div top_div">
+        <a href="/">
+            <input type="button" style="color:white" class="logout_button" value="退出登录">
+        </a>
+    </div>
+</div>
+<div class="select_group">
+    <div class="form_css">
+        <a href="/to_stu_update?stu_id={{account}}">
+            <input class="button_css b1" type=button value="个人信息修改"/>
+        </a>
+    </div>
+    <div class="form_css">
+        <a href="/to_my_course?stu_id={{account}}">
+            <input class="button_css b2" type=button value="查看我的课表"/>
+        </a>
+    </div>
+</div>
 
 </body>
 </html>
