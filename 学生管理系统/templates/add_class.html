@@ -50,24 +50,30 @@
             height: 68px;
             width: 166px;
         }
+        .top_message{
+            text-align: center;
+            background-color: rebeccapurple;
+            width: 1520px;
+        }
     </style>
 </head>
 <body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
+<div class="top_message">{{message}}</div>
 <div class="top_div">
     <div class="top_txt">添加课程</div>
 </div>
 <form class="form_get" action="/class_add" method="get">
     <div class="X_group">
         <div class="name_txt">课程号</div>
-        <input name="new_account" class="input_txt" type="text" value="" >
+        <input name="new_account" id="course_num" class="input_txt" type="text" value="" >
     </div>
     <div class="X_group">
         <div class="name_txt">课程名称</div>
-        <input name="new_name" class="input_txt" type="text" value="">
+        <input name="new_name"    id="course_name" class="input_txt" type="text" value="">
     </div>
     <div class="X_group">
         <div class="name_txt">教师名称</div>
-        <input name="new_teacher" class="input_txt" type="text" value="" list="teacher_list" autocomplete="off">
+        <input name="new_teacher" id="teacher_name" class="input_txt" type="text" value="" list="teacher_list" autocomplete="off">
         <datalist id="teacher_list">
             {%for item in teacher_name_list%}
             <option value="{{item[0]}}"></option>
@@ -76,28 +82,105 @@
     </div>
     <div class="X_group">
         <div class="name_txt">学生上限</div>
-        <input name="new_max_num" class="input_txt" type="text" value="">
+        <input name="new_max_num" id="max_num" class="input_txt" type="text" value="">
     </div>
     <div class="X_group">
         <div class="name_txt">学时</div>
-        <input name="new_time" class="input_txt" type="text" value="">
+        <input name="new_time" id = "time" class="input_txt" type="text" value="">
     </div>
     <div class="X_group">
         <div class="name_txt">学分</div>
-        <input name="new_credit" class="input_txt" type="text" value="">
+        <input name="new_credit" id="credit" class="input_txt" type="text" value="">
     </div>
     <div class="X_group">
         <div class="name_txt">开始学期</div>
-        <input name="new_start_term" class="input_txt" type="text" value="">
+        <input name="new_start_term" id="start_term" class="input_txt" type="text" value="">
     </div>
     <div class="X_group">
         <div class="name_txt">课程类型</div>
-        <input name="new_type" class="input_txt" type="text" value="">
+        <input name="new_type" id="type" class="input_txt" type="text" value="">
     </div>
-    <input type="submit" class="button" value="确认添加">
+    <input type="submit" class="button" value="确认添加" onclick="return CK()">
 </form>
 <a href="/back">
     <input type="button" class="button_back" value="返回">
 </a>
+
 </body>
+<script type="text/javascript">
+    function CK() {
+        var course_num = document.getElementById("course_num").value;
+        var course_name = document.getElementById("course_name").value;
+
+        var teacher_name = document.getElementById("teacher_name").value;
+        var max_num = document.getElementById("max_num").value;
+        var time = document.getElementById("time").value;
+        var credit = document.getElementById("credit").value;
+
+        var start_term = document.getElementById("start_term").value;
+        var type = document.getElementById("type").value;
+
+        if(course_num.length==0)
+        {
+            alert("请输入课程号");
+            return false;
+        }
+        else if(course_name.length==0)
+        {
+            alert("请输入课程名");
+            return false;
+        }
+        else if(teacher_name.length==0)
+        {
+            alert("请输入老师名");
+            return false;
+        }
+        else if(max_num.length==0)
+        {
+            alert("请输入最大学生数");
+            return false;
+        }
+        else if(time.length==0)
+        {
+            alert("请输入学时");
+            return false;
+        }
+        else if(credit.length==0)
+        {
+            alert("请输入学分");
+            return false;
+        }
+        else if(start_term.length==0)
+        {
+            alert("请输入开课时间");
+            return false;
+        }
+        else if(type.length==0)
+        {
+            alert("请输入课程种类");
+            return false;
+        }
+        else if(isnumber(max_num)==false)
+        {
+            alert("最大课程人数应为数字");
+            return false;
+        }
+        else if(isnumber(time)==false)
+        {
+            alert("学时应为数字");
+            return false;
+        }
+        else if(isnumber(credit)==false)
+        {
+            alert("学分应为数字");
+            return false;
+        }
+        return true;
+    }
+
+    function isnumber(num) {
+        var username = /^[1-9.]+$/;
+        return(username.test(num));
+    }
+</script>
 </html>

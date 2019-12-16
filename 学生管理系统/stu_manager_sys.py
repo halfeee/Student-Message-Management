@@ -149,6 +149,23 @@ def m_student():
     cur.close()
     return render_template('manager_stu_list.html',account=session['account'],name=session['name'],sex=session['sex'],stu_table=result);
 
+@app.route('/select_student',methods=['GET'])
+def select_student():
+    if 'login_type' not in session:
+        return render_template('login.html');
+    id = session['account'];
+    name = session['name'];
+    sex = session['sex'];
+    stu_name = request.args['stu_name'];
+    database = "database\Stu_Message_manger.db"
+    conn = sqlite3.connect(database)
+    cur = conn.cursor()
+    sql = "select student.id,student.name,student.sex,student.birthday,class.name,password from student,class where class.id = student.class_num and student.name like '%%%s%%';"%(stu_name);
+    cur.execute(sql)
+    result = cur.fetchall()  # 获得查询的结果
+    cur.close()
+    return render_template('manager_stu_list.html', account=session['account'], name=session['name'],sex=session['sex'], stu_table=result);
+
 
 @app.route('/manager_change',methods=['GET'])
 def manager_change():
@@ -238,6 +255,22 @@ def m_teacher():
     result = cur.fetchall()  # 获得查询的结果
     cur.close()
     return render_template('manager_tea_list.html', account=session['account'], name=session['name'], sex=session['sex'], tea_table=result);
+
+@app.route('/select_teacher',methods=['GET'])
+def select_teacher():
+    if 'login_type' not in session:
+        return render_template('login.html');
+
+    tea_name = request.args['tea_name'];
+    database = "database\Stu_Message_manger.db"
+    conn = sqlite3.connect(database)
+    cur = conn.cursor()
+    sql = "select teacher.id,teacher.name,teacher.sex,major.name,major.department,teacher.password from teacher,major where teacher.major=major.id and teacher.name like '%%%s%%';" % (tea_name);
+    cur.execute(sql)
+    result = cur.fetchall()  # 获得查询的结果
+    cur.close()
+    return render_template('manager_tea_list.html', account=session['account'], name=session['name'],sex=session['sex'], tea_table=result);
+
 
 @app.route('/tea_delete',methods=['GET'])
 def tea_delete():
@@ -595,21 +628,51 @@ def class_add():
     new_credit = request.args['new_credit'];
     new_start_term = request.args['new_start_term'];
     new_type = request.args['new_type'];
+    determine = "正常";
+    if(new_account==""):
+        determine="请补全信息"
+    elif (new_name == ""):
+        determine = "请补全信息"
+    elif (new_teacher == ""):
+        determine = "请补全信息"
+    elif (new_max_num == ""):
+        determine = "请补全信息"
+    elif (new_credit == ""):
+        determine = "请补全信息"
+    elif (new_start_term == ""):
+        determine = "请补全信息"
+    elif (new_type == ""):
+        determine = "请补全信息"
+    elif(not is_number(new_max_num)):
+        determine = "学生数量错误"
+    elif (not is_number(new_time)):
+        determine = "学时错误"
+    elif(not is_number(new_credit)):
+        determine = "学分错误"
     # 查询老师编号
-    database = "database\Stu_Message_manger.db";
-    conn = sqlite3.connect(database);
-    cur = conn.cursor()
-    sql = "select teacher.id from teacher where teacher.name = '%s'" % (new_teacher);
-    cur.execute(sql);
-    result = cur.fetchall();
-    new_teacher = result[0][0];
-    sql = "INSERT INTO course VALUES ('%s', '%s', '%s','%s','0','%s','%s','%s','%s')"%(new_account,new_name,new_teacher,new_max_num,new_time,new_credit,new_start_term,new_type);
-    cur.execute(sql);
-    conn.commit();
-    cur.execute("select course.id,course.name,teacher.name,course.max_num,course.stu_num,course.time,course.credit,course.start_term,course.class_type from course,teacher where course.teacher_id = teacher.id");
-    result = cur.fetchall()  # 获得查询的结果
-    cur.close()
-    return render_template('manager_class_list.html', account=session['account'], name=session['name'],sex=session['sex'], class_table=result);
+    if(determine == "正常"):
+        database = "database\Stu_Message_manger.db";
+        conn = sqlite3.connect(database);
+        cur = conn.cursor()
+        sql = "select teacher.id from teacher where teacher.name = '%s'" % (new_teacher);
+        cur.execute(sql);
+        result = cur.fetchall();
+        new_teacher = result[0][0];
+        sql = "INSERT INTO course VALUES ('%s', '%s', '%s','%s','0','%s','%s','%s','%s')"%(new_account,new_name,new_teacher,new_max_num,new_time,new_credit,new_start_term,new_type);
+        cur.execute(sql);
+        conn.commit();
+        cur.execute("select course.id,course.name,teacher.name,course.max_num,course.stu_num,course.time,course.credit,course.start_term,course.class_type from course,teacher where course.teacher_id = teacher.id");
+        result = cur.fetchall()  # 获得查询的结果
+        cur.close()
+        return render_template('manager_class_list.html', account=session['account'], name=session['name'],sex=session['sex'], class_table=result);
+    else:
+        database = "database\Stu_Message_manger.db"
+        conn = sqlite3.connect(database)
+        cur = conn.cursor()
+        cur.execute("select name from teacher");
+        teacher_name_list = cur.fetchall();
+        return render_template('add_class.html', teacher_name_list=teacher_name_list,message = determine);
+
 @app.route('/to_tea_course',methods=['GET'])
 def to_tea_class():
     if 'login_type' not in session:
@@ -655,6 +718,15 @@ def tea_change_grade():
     result = cur.fetchall()
     return render_template('course_grade.html', grade_table=result, course_id=course_id,message='修改完成');
 
+def is_number(str):
+  try:
+    # 因为使用float有一个例外是'NaN'
+    if str=='NaN':
+      return False
+    float(str)
+    return True
+  except ValueError:
+    return False
 
 if __name__ == '__main__':
     app.run(debug=True)

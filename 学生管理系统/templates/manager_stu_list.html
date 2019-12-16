@@ -34,12 +34,27 @@
             margin-left: 40px;
             margin-top: 90px;
         }
+        .select_text{
+            margin-top: 20px;
+            height: 40px;
+            width: 500px;
+            margin-left: 400px;
+        }
+        .select_button{
+            margin-top: 20px;
+            height: 40px;
+            width: 70px;
+        }
     </style>
 </head>
 <body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
 <div class="top_div">
     <div class="top_txt">学生信息列表</div>
 </div>
+<form action="/select_student">
+    <input type="text" name="stu_name" placeholder="查询学生" class="select_text">
+    <input type="submit" value="搜索" class="select_button">
+</form>
 <TABLE align="center"   width="1400" >
     <a href="/to_add_student">
         <input type="button" class="add_button" value="添加">
