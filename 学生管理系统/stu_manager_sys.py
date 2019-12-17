@@ -6,6 +6,7 @@ import sys
 import sqlite3
 import os
 import random
+import openpyxl
 
 app = Flask(__name__)
 app.secret_key="123456789"
@@ -717,6 +718,38 @@ def tea_change_grade():
     cur.execute(sql);
     result = cur.fetchall()
     return render_template('course_grade.html', grade_table=result, course_id=course_id,message='修改完成');
+
+@app.route('/add_grade',methods=['GET'])
+def add_grade():
+    course_id = request.args['course_id'];
+    mytext = request.args['mytext'];
+    print(course_id);#获取的课程号
+    print("==============================",mytext);#获取的文件路径
+    database = "database\Stu_Message_manger.db";
+    conn = sqlite3.connect(database);
+    cur = conn.cursor();
+    wb = openpyxl.load_workbook(mytext)
+    ws=wb.active;
+    print(ws.max_row,ws.max_column);
+    for i in range(1,ws.max_row+1):
+        for j in ['A','B','C']:
+            x = j+str(i);
+            if j=='A':
+                id = ws[x].value;
+            if j=='C':
+                grade =ws[x].value;
+        sql = "update grade set grade = '%s' where student_id = '%s' and class_id = '%s'"%(grade,id,course_id)
+        cur.execute(sql);
+        conn.commit();
+
+
+    sql = "select grade.id ,course.name,student.name,grade.grade from course,student,grade where grade.student_id = student.id and grade.class_id = course.id and course.id = '%s'" % (course_id);
+    cur.execute(sql);
+    result = cur.fetchall()
+    return render_template('course_grade.html', grade_table=result, course_id=course_id, message='修改完成');
+
+
+
 
 def is_number(str):
   try:

@@ -32,6 +32,13 @@
             background-color: rebeccapurple;
             width: 1520px;
         }
+        .add_grade{
+            height: 80px;
+            width: 60px;
+        }
+        .add_grade_submit{
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body background="{{ url_for('static', filename='pic/background.jpg') }}" style=" background-repeat:no-repeat ;background-size:100% 100%;background-attachment: fixed;">
@@ -39,6 +46,12 @@
 <div class="top_div">
     <div class="top_txt">学生成绩列表</div>
 </div>
+<form class="add_grade" action="/add_grade">
+    <input type="hidden" name="course_id" value="{{course_id}}">
+    <input type="text" name="mytext" id="mytext">
+    <input type="file" name="test" class="add_excel" onchange="readFile(this)">
+    <input type="submit" value="提交文件" class="add_grade_submit">
+</form>
 <TABLE align="center"   width="1400" >
     <CAPTION class="table_caption">成绩列表</CAPTION>
     <TR align="center" height="60px"> <TH>课程号</TH><TH>课程名</TH><TH>学生名称</TH><TH>成绩</TH></TR>
@@ -61,4 +74,10 @@
     <input type="button" class="button_back" value="返回">
 </a>
 </body>
+<script type="text/javascript">
+    function readFile(elem) {
+        var name = elem.value.lastIndexOf("\\");
+        document.getElementById("mytext").value = elem.value.substr(name+1);
+    }
+</script>
 </html>
